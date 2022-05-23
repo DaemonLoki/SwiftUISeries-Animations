@@ -1,0 +1,115 @@
+//
+//  MediumClapView.swift
+//  SwiftUISeriesAnimations
+//
+//  Created by Stefan Blos on 23.05.22.
+//
+
+import SwiftUI
+
+struct MediumClapView: View {
+    
+    let size: CGFloat = 100
+    let speed = 1.0
+    let duration = 0.8
+    
+    @State private var rotationDegrees = 0.0
+    @State private var yOffset: CGFloat = 0
+    @State private var xOffset: CGFloat = 0
+    @State private var opacity = 0.0
+    
+    @State private var gradientOpacity = 0.0
+    @State private var gradientOffset: CGFloat = -200
+    
+    @State private var firstColor: Color = .gray
+    @State private var secondColor: Color = .gray
+    
+    var body: some View {
+        ZStack {
+            Image(systemName: "hands.clap.fill")
+                .resizable()
+                .foregroundColor(.gray)
+                .opacity(0.5)
+                .frame(width: size, height: size)
+            
+            Image(systemName: "hands.clap")
+                .resizable()
+                .foregroundColor(firstColor)
+                .frame(width: size, height: size)
+                .rotation3DEffect(.degrees(rotationDegrees), axis: (x: 0, y: 1, z: 0), anchor: .center)
+                .offset(x: xOffset, y: yOffset)
+                .opacity(opacity)
+            
+            Image(systemName: "hands.clap")
+                .resizable()
+                .foregroundColor(secondColor)
+                .frame(width: size, height: size)
+                .rotation3DEffect(.degrees(-rotationDegrees), axis: (x: 0, y: 1, z: 0), anchor: .center)
+                .offset(x: -xOffset, y: yOffset)
+                .opacity(opacity)
+            
+            LinearGradient(colors: [.orange, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
+                .frame(width: 100, height: 100)
+                .offset(y: gradientOffset)
+                .mask {
+                Image(systemName: "hands.clap.fill")
+                    .resizable()
+                    .foregroundColor(.gray)
+                    .frame(width: size, height: size)
+            }
+        }
+        .onTapGesture {
+            gradientOpacity = 0.0
+            gradientOffset = -200
+            
+            withAnimation(
+                .easeIn(duration: duration)
+                .repeatCount(2, autoreverses: true)
+            ) {
+                rotationDegrees = 360 * 1
+                yOffset = -110
+                opacity = 0.6
+            }
+            
+            withAnimation(
+                .easeIn(duration: duration / 2)
+                .repeatCount(4, autoreverses: true)
+            ) {
+                
+                xOffset = 30
+            }
+            
+            withAnimation(
+                .easeIn(duration: duration / 2)
+                .delay(duration / 2)
+                .repeatCount(2, autoreverses: true)
+            ) {
+                    firstColor = .blue
+                    secondColor = .orange
+                }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration + 0.2) {
+                withAnimation(.easeIn) {
+                    gradientOpacity = 1
+                    gradientOffset = 0
+                }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + (duration * 2) - 0.2, execute: {
+                rotationDegrees = 0
+                yOffset = 0
+                xOffset = 0
+                opacity = 0
+                firstColor = .gray
+                secondColor = .gray
+            })
+        }
+    }
+}
+
+struct MediumClapView_Previews: PreviewProvider {
+    static var previews: some View {
+        MediumClapView()
+            .preferredColorScheme(.dark)
+    }
+}
