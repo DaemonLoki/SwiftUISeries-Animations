@@ -11,6 +11,7 @@
 		AC2A1169283C246C0007E14B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2A1168283C246C0007E14B /* ContentView.swift */; };
 		AC2A116B283C246E0007E14B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC2A116A283C246E0007E14B /* Assets.xcassets */; };
 		AC2A116E283C246E0007E14B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC2A116D283C246E0007E14B /* Preview Assets.xcassets */; };
+		AC2A1175283C24850007E14B /* TwitterLikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2A1174283C24850007E14B /* TwitterLikeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		AC2A1168283C246C0007E14B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AC2A116A283C246E0007E14B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC2A116D283C246E0007E14B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AC2A1174283C24850007E14B /* TwitterLikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterLikeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				AC2A1166283C246C0007E14B /* SwiftUISeriesAnimationsApp.swift */,
 				AC2A1168283C246C0007E14B /* ContentView.swift */,
+				AC2A1174283C24850007E14B /* TwitterLikeView.swift */,
 				AC2A116A283C246E0007E14B /* Assets.xcassets */,
 				AC2A116C283C246E0007E14B /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC2A1175283C24850007E14B /* TwitterLikeView.swift in Sources */,
 				AC2A1169283C246C0007E14B /* ContentView.swift in Sources */,
 				AC2A1167283C246C0007E14B /* SwiftUISeriesAnimationsApp.swift in Sources */,
 			);
