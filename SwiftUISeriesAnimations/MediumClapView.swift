@@ -24,6 +24,12 @@ struct MediumClapView: View {
     @State private var firstColor: Color = .gray
     @State private var secondColor: Color = .gray
     
+    @State private var sparkleXOffset: CGFloat = 0
+    @State private var sparkleYOffset: CGFloat = -130
+    @State private var sparkleScale: CGFloat = 2.0
+    @State private var sparkleOpacity = 0.0
+    @State private var sparkleRotation = 0.0
+    
     var body: some View {
         ZStack {
             Image(systemName: "hands.clap.fill")
@@ -51,34 +57,55 @@ struct MediumClapView: View {
             LinearGradient(colors: [.orange, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .frame(width: 100, height: 100)
                 .offset(y: gradientOffset)
+                .opacity(gradientOpacity)
                 .mask {
                 Image(systemName: "hands.clap.fill")
                     .resizable()
                     .foregroundColor(.gray)
                     .frame(width: size, height: size)
             }
+            
+            ForEach(-3...3, id: \.self) { i in
+                Image(systemName: "sparkle")
+                    .foregroundColor(.yellow)
+                    .rotationEffect(.degrees(Double(i + 10) * sparkleRotation))
+                    .scaleEffect(sparkleScale)
+                    .offset(x: CGFloat(i) * sparkleXOffset, y: sparkleYOffset)
+                    .opacity(sparkleOpacity)
+            }
+            
         }
         .onTapGesture {
             gradientOpacity = 0.0
             gradientOffset = -200
+            xOffset = 0
+            yOffset = 0
+            sparkleXOffset = 5
+            sparkleYOffset = -130
+            sparkleOpacity = 0.0
+            sparkleScale = 0.0
+            sparkleRotation = 0.0
             
+            // hands rotation + yOffset + opacity
             withAnimation(
                 .easeIn(duration: duration)
                 .repeatCount(2, autoreverses: true)
             ) {
                 rotationDegrees = 360 * 1
-                yOffset = -110
+                yOffset += -110
                 opacity = 0.6
             }
             
+            // hands xOffset
             withAnimation(
                 .easeIn(duration: duration / 2)
                 .repeatCount(4, autoreverses: true)
             ) {
                 
-                xOffset = 30
+                xOffset += 30
             }
             
+            // hands color change
             withAnimation(
                 .easeIn(duration: duration / 2)
                 .delay(duration / 2)
@@ -88,13 +115,29 @@ struct MediumClapView: View {
                     secondColor = .orange
                 }
             
+            // gradient animation
             DispatchQueue.main.asyncAfter(deadline: .now() + duration + 0.2) {
                 withAnimation(.easeIn) {
                     gradientOpacity = 1
-                    gradientOffset = 0
+                    gradientOffset += 200
                 }
             }
             
+            // sparkles animation
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                sparkleOpacity = 0.5
+                withAnimation(
+                    .easeOut(duration: duration)) {
+                        sparkleXOffset += 40
+                        sparkleYOffset -= 200
+                        sparkleScale = 4.0
+                        sparkleOpacity = 0.0
+                        sparkleRotation = 300
+                    }
+                
+            }
+            
+            // reset hands elements
             DispatchQueue.main.asyncAfter(deadline: .now() + (duration * 2) - 0.2, execute: {
                 rotationDegrees = 0
                 yOffset = 0
