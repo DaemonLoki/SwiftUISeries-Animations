@@ -25,10 +25,10 @@ struct MediumClapView: View {
     @State private var secondColor: Color = .gray
     
     @State private var sparkleXOffset: CGFloat = 0
-    @State private var sparkleYOffset: CGFloat = -130
+    @State private var sparkleYOffset: CGFloat = -110
     @State private var sparkleScale: CGFloat = 2.0
     @State private var sparkleOpacity = 0.0
-    @State private var sparkleRotation = 0.0
+    @State private var sparkleRotation = 20.0
     
     var body: some View {
         ZStack {
@@ -65,12 +65,13 @@ struct MediumClapView: View {
                     .frame(width: size, height: size)
             }
             
-            ForEach(-3...3, id: \.self) { i in
+            ForEach(0...5, id: \.self) { i in
                 Image(systemName: "sparkle")
                     .foregroundColor(.yellow)
-                    .rotationEffect(.degrees(Double(i + 10) * sparkleRotation))
-                    .scaleEffect(sparkleScale)
-                    .offset(x: CGFloat(i) * sparkleXOffset, y: sparkleYOffset)
+                    .rotationEffect(.degrees(Double(i + 20) * sparkleRotation))
+                    .scaleEffect(sparkleScale * (Double(i) * 0.9))
+//                    .offset(x: CGFloat(i) * sparkleXOffset, y: sparkleYOffset)
+                    .offset(y: sparkleYOffset)
                     .opacity(sparkleOpacity)
             }
             
@@ -81,10 +82,11 @@ struct MediumClapView: View {
             xOffset = 0
             yOffset = 0
             sparkleXOffset = 5
-            sparkleYOffset = -130
+            sparkleYOffset = -110
             sparkleOpacity = 0.0
             sparkleScale = 0.0
-            sparkleRotation = 0.0
+            sparkleRotation = 20.0
+            opacity = 0.6
             
             // hands rotation + yOffset + opacity
             withAnimation(
@@ -116,8 +118,8 @@ struct MediumClapView: View {
                 }
             
             // gradient animation
-            DispatchQueue.main.asyncAfter(deadline: .now() + duration + 0.2) {
-                withAnimation(.easeIn) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration + 0.3) {
+                withAnimation(.easeIn(duration: duration / 2)) {
                     gradientOpacity = 1
                     gradientOffset += 200
                 }
@@ -125,14 +127,13 @@ struct MediumClapView: View {
             
             // sparkles animation
             DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-                sparkleOpacity = 0.5
+                sparkleOpacity = 0.4
                 withAnimation(
-                    .easeOut(duration: duration)) {
+                    .easeOut(duration: duration * 2)) {
                         sparkleXOffset += 40
-                        sparkleYOffset -= 200
                         sparkleScale = 4.0
                         sparkleOpacity = 0.0
-                        sparkleRotation = 300
+                        sparkleRotation = 50
                     }
                 
             }

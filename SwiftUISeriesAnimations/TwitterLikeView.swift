@@ -15,10 +15,10 @@ struct TwitterLikeView: View {
     
     let speed = 0.3
     var stiffness = 250.0
-    var damping = 15.0
+    var damping = 12.0
     var mass = 0.6
     
-    let dampingFactor = 3.0
+    let dampingFactor = 2.0
     let speedFactor = 0.1
     let opacityFactor = 0.1
     let baseOpacity = 0.5
