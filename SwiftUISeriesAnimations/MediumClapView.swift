@@ -10,6 +10,7 @@ import SwiftUI
 struct MediumClapView: View {
     
     let size: CGFloat = 100
+    let handSize: CGFloat = 80
     let speed = 1.0
     let duration = 0.8
     
@@ -38,18 +39,18 @@ struct MediumClapView: View {
                 .opacity(0.5)
                 .frame(width: size, height: size)
             
-            Image(systemName: "hands.clap")
+            Image(systemName: "hand.wave")
                 .resizable()
                 .foregroundColor(firstColor)
-                .frame(width: size, height: size)
+                .frame(width: handSize, height: handSize)
                 .rotation3DEffect(.degrees(rotationDegrees), axis: (x: 0, y: 1, z: 0), anchor: .center)
                 .offset(x: xOffset, y: yOffset)
                 .opacity(opacity)
             
-            Image(systemName: "hands.clap")
+            Image(systemName: "hand.wave")
                 .resizable()
                 .foregroundColor(secondColor)
-                .frame(width: size, height: size)
+                .frame(width: handSize, height: handSize)
                 .rotation3DEffect(.degrees(-rotationDegrees), axis: (x: 0, y: 1, z: 0), anchor: .center)
                 .offset(x: -xOffset, y: yOffset)
                 .opacity(opacity)
